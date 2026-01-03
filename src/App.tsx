@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
+import "./index.css";
 
 import {
   Home,
@@ -21,6 +22,8 @@ import {
   EarthIcon,
   WholeWord,
   Linkedin,
+  Globe,
+  X,
 } from "lucide-react";
 
 const styles = `
@@ -43,7 +46,13 @@ const styles = `
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [rockets, setRockets] = useState([]);
+  interface Rocket {
+    id: number;
+    startX: number;
+    delay: number;
+  }
+
+  const [rockets, setRockets] = useState<Rocket[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,6 +62,7 @@ const Portfolio = () => {
         "projects",
         "experience",
         "education",
+        "languages",
         "contact",
       ];
 
@@ -78,7 +88,7 @@ const Portfolio = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: any) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
   };
@@ -88,13 +98,14 @@ const Portfolio = () => {
     { id: "about", icon: User, label: "Tripulação" },
     { id: "projects", icon: Rocket, label: "Expedições" },
     { id: "education", icon: GraduationCap, label: "Diário de Bordo" },
+    { id: "languages", icon: Globe, label: "Constelação de Idiomas" },
     { id: "contact", icon: Satellite, label: "Sinal" },
   ];
-const apiUrl = import.meta.env.VITE_SERVICE_KEY;
-const templateKey = import.meta.env.VITE_TEMPLATE_KEY;
-const publicKey = import.meta.env.VITE_PUBLIC_KEY;
+  const apiUrl = import.meta.env.VITE_SERVICE_KEY;
+  const templateKey = import.meta.env.VITE_TEMPLATE_KEY;
+  const publicKey = import.meta.env.VITE_PUBLIC_KEY;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     const newRockets = Array.from({ length: 5 }, (_, i) => ({
@@ -106,23 +117,16 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
 
     setTimeout(() => setRockets([]), 3000);
 
-    emailjs
-      .sendForm(
-        apiUrl,
-        templateKey,
-        e.target,
-        publicKey
-      )
-      .then(
-        () => {
-          alert("Transmissão enviada com sucesso 🚀");
-          e.target.reset();
-        },
-        (error) => {
-          console.error(error);
-          alert("Falha na transmissão ❌");
-        }
-      );
+    emailjs.sendForm(apiUrl, templateKey, e.target, publicKey).then(
+      () => {
+        alert("Transmissão enviada com sucesso 🚀");
+        e.target.reset();
+      },
+      (error) => {
+        console.error(error);
+        alert("Falha na transmissão ❌");
+      }
+    );
   };
 
   const projects = [
@@ -133,7 +137,7 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
         "Aplicativo mobile desenvolvido em React Native, com armazenamento local via Async Storage e integração ao Firebase, focado em treinos personalizados, acompanhamento de progresso e gestão inteligente de avaliações físicas.",
       tech: ["React Native", "TypeScript", "Firebase", "Async Storage"],
       image: "https://i.imgur.com/QkyLuqn.jpeg",
-      github: 'https://github.com/GustavoMatoi/SMAAluno'
+      github: "https://github.com/GustavoMatoi/SMAAluno",
     },
     {
       title: "Toxoplasmose e Machine Learning",
@@ -143,8 +147,7 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
       tech: ["Python", "Scikit Learn", "Tensorflow", "CV2"],
       image:
         "https://media.geeksforgeeks.org/wp-content/uploads/20250121155050429170/non_linear_svm_polynomial_kernel.png",
-        github: 'https://github.com/GustavoMatoi/TCC-Grad_Ciencia_da_Comp'
-
+      github: "https://github.com/GustavoMatoi/TCC-Grad_Ciencia_da_Comp",
     },
     {
       title: "Climate & Geo Prototype",
@@ -153,7 +156,7 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
         "Protótipo experimental que combina geolocalização, consumo de APIs e visualização de dados climáticos em tempo real. O projeto explora a integração entre localização do usuário, previsão do tempo e apresentação dinâmica das informações, com foco em testar tecnologias e fluxos, não em um produto final.",
       tech: ["React Native", "Expo", "OpenWeatherMap API"],
       image: "https://i.imgur.com/B9tiGhr.jpeg",
-      github: 'https://github.com/GustavoMatoi/projeto_final_sig'
+      github: "https://github.com/GustavoMatoi/projeto_final_sig",
     },
     {
       title: "Transferência de Arquivos via Reconhecimento de Gestos",
@@ -168,7 +171,7 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
         "MediaPipe Hands",
       ],
       image: "https://i.imgur.com/hLPDd7k.jpeg",
-      github: '#'
+      github: "#",
     },
     {
       title: "Sistema Solar 3D Interativo",
@@ -177,8 +180,7 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
         "Projeto educativo desenvolvido para adolescentes interessados em programação e astronomia. A aplicação permite explorar o sistema solar em 3D de forma interativa, enquanto os alunos aprendem conceitos de lógica, programação gráfica e computação visual, utilizando tecnologias modernas da web.",
       tech: ["JavaScript", "React", "Three.js", "WebGL", "React Three Fiber"],
       image: "https://i.imgur.com/LHcstmg.png",
-            github: '#'
-
+      github: "#",
     },
   ];
 
@@ -208,7 +210,7 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
   ];
 
   const education = [
- /*   {
+    /*   {
       title: "Mestrado em Ciência da Computação",
       institution: "Universidade Federal de Viçosa",
       year: "2026 - Atualmente",
@@ -242,7 +244,7 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
     <div className="flex h-screen w-full relative bg-[#0B0912] text-slate-200 overflow-hidden">
       {/* Injeta o CSS da animação */}
       <style>{styles}</style>
-      
+
       {/* Rockets Animation */}
       {rockets.map((rocket: any) => (
         <div
@@ -258,7 +260,7 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
             {/* Trilha de fogo */}
             <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-1 h-16 bg-gradient-to-b from-orange-500 via-red-500 to-transparent opacity-70 blur-sm" />
             <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-2 h-12 bg-gradient-to-b from-yellow-400 via-orange-500 to-transparent opacity-90" />
-            
+
             {/* Foguete */}
             <Rocket className="w-8 h-8 text-purple-400 drop-shadow-[0_0_10px_rgba(139,92,246,0.8)] rotate-[-45deg]" />
           </div>
@@ -354,13 +356,18 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
               Frequência
             </p>
             <div className="flex justify-center gap-3 px-2">
-              <a href="https://github.com/GustavoMatoi"  className="p-2 rounded-lg bg-[#151221] hover:bg-purple-600/20 hover:text-purple-400 transition-all hover:-translate-y-1 text-slate-400 shadow-lg border border-white/5">
+              <a
+                href="https://github.com/GustavoMatoi"
+                className="p-2 rounded-lg bg-[#151221] hover:bg-purple-600/20 hover:text-purple-400 transition-all hover:-translate-y-1 text-slate-400 shadow-lg border border-white/5"
+              >
                 <Github className="w-5 h-5" />
               </a>
-              <a href="https://www.linkedin.com/in/gustavo-v-6b613524b/" className="p-2 rounded-lg bg-[#151221] hover:bg-purple-600/20 hover:text-purple-400 transition-all hover:-translate-y-1 text-slate-400 shadow-lg border border-white/5">
+              <a
+                href="https://www.linkedin.com/in/gustavo-v-6b613524b/"
+                className="p-2 rounded-lg bg-[#151221] hover:bg-purple-600/20 hover:text-purple-400 transition-all hover:-translate-y-1 text-slate-400 shadow-lg border border-white/5"
+              >
                 <Linkedin className="w-5 h-5" />
               </a>
-
             </div>
           </div>
         </div>
@@ -373,10 +380,74 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
         </span>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 text-white bg-[#151221] rounded-md border border-white/10"
+          className="p-2 text-white bg-[#151221] rounded-md border border-white/10 hover:border-cyan-500/30 transition-all duration-300"
         >
-          <Menu className="w-6 h-6" />
+          {mobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
         </button>
+      </div>
+
+      {/* Menu Mobile com animação slide */}
+      <div
+        className={`lg:hidden fixed inset-0 z-40 transition-all duration-500 ${
+          mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+      >
+        {/* Overlay com blur */}
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-500 ${
+            mobileMenuOpen ? "opacity-100" : "opacity-0"
+          }`}
+        />
+
+        {/* Menu deslizante */}
+        <div
+          className={`absolute top-0 right-0 h-full w-[85%] max-w-sm bg-gradient-to-br from-[#0B0912] via-[#151221] to-[#0B0912] shadow-2xl transition-transform duration-500 ease-out ${
+            mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          {/* Header do menu */}
+          <div className="px-6 py-8 border-b border-white/10">
+            <h3 className="text-2xl font-bold text-white mb-1">Menu</h3>
+            <p className="text-sm text-white/60">Navegue pelo portfólio</p>
+          </div>
+
+          {/* Items do menu */}
+          <nav className="px-6 py-8 space-y-3 overflow-y-auto max-h-[calc(100vh-180px)]">
+            {navItems.map(({ id, label, icon: Icon }, index) => (
+              <button
+                key={id}
+                onClick={() => {
+                  scrollToSection(id);
+                  setMobileMenuOpen(false);
+                }}
+                className={`group w-full flex items-center gap-4 p-4 text-white hover:text-cyan-400 rounded-lg border border-white/10 hover:border-cyan-500/50 bg-white/5 hover:bg-cyan-500/10 transition-all duration-300 transform hover:translate-x-2 ${
+                  mobileMenuOpen ? "animate-fadeInRight" : ""
+                }`}
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center border border-cyan-500/30 group-hover:border-cyan-500 transition-all duration-300">
+                  <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                </div>
+                <span className="text-base font-medium tracking-wide">
+                  {label}
+                </span>
+              </button>
+            ))}
+          </nav>
+
+          {/* Footer decorativo */}
+          <div className="absolute bottom-0 left-0 right-0 px-6 py-6 border-t border-white/10 bg-gradient-to-t from-[#0B0912] to-transparent">
+            <div className="flex items-center justify-center gap-2 text-white/40 text-xs">
+              <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
+              <span>Desenvolvido por Gustavo Vaz</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Main Content */}
@@ -412,17 +483,18 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
               </p>
 
               <div className="flex flex-wrap gap-4 mt-4">
-                <button className="group relative overflow-hidden bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg font-bold transition-all shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:shadow-[0_0_35px_rgba(139,92,246,0.6)] hover:-translate-y-1">
+                <a
+                  href="/Gustavo_Curriculo_atualizado_2025.pdf"
+                  download="Gustavo_Vaz_Teixeira_Curriculo_2025.pdf"
+                  className="group relative overflow-hidden bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg font-bold transition-all shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:shadow-[0_0_35px_rgba(139,92,246,0.6)] hover:-translate-y-1 inline-block"
+                >
                   <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                   <span className="flex items-center gap-2 relative z-10">
                     <Download className="w-5 h-5" />
                     <span>Dados do Capitão</span>
                   </span>
-                </button>
-                <button className="flex items-center gap-2 bg-[#151221]/50 hover:bg-[#151221] border border-white/10 hover:border-cyan-500/50 text-white px-8 py-4 rounded-lg font-bold transition-all backdrop-blur-sm group">
-                  <Rocket className="w-5 h-5 group-hover:text-cyan-500 transition-colors" />
-                  <span>Iniciar Contato</span>
-                </button>
+                </a>
+  
               </div>
 
               <div className="mt-8 pt-8 border-t border-white/5 relative">
@@ -613,7 +685,6 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
                   Projetos Recentes
                 </h2>
               </div>
-
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
@@ -670,8 +741,10 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
                       </div>
 
                       <div className="flex gap-4 mt-auto pt-4 border-t border-white/5">
-
-                        <a href={project.github} className="group/btn relative flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">
+                        <a
+                          href={project.github}
+                          className="group/btn relative flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                        >
                           <Github className="w-4.5 h-4.5 group-hover/btn:text-purple-400 transition-colors" />
                           <span>GitHub</span>
                           <span className="absolute -bottom-1 left-0 w-0 h-px bg-purple-600 group-hover/btn:w-full transition-all duration-300 shadow-[0_0_8px_rgba(139,92,246,0.8)]" />
@@ -811,7 +884,41 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
         <div className="relative h-24 w-full overflow-hidden pointer-events-none -my-12 z-10">
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-[100px] border-t-2 border-purple-500/20 rounded-[100%] shadow-[0_-2px_20px_rgba(139,92,246,0.1)] blur-0.5" />
         </div>
+        {/* Languages Section */}
+        <section id="languages" className="py-24 px-4 lg:px-20 relative">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex items-center gap-4 mb-12">
+              <div className="h-0.5 w-12 bg-linear-to-r from-transparent to-cyan-500" />
+              <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-white drop-shadow-[0_0_12px_rgba(6,182,212,0.6)]">
+                Idiomas
+              </h2>
+            </div>
 
+            <div className="grid gap-6 md:grid-cols-3">
+              {[
+                { language: "Inglês", level: "Avançado" },
+                { language: "Espanhol", level: "Básico-Intermediário" },
+                { language: "Francês", level: "Básico" },
+              ].map((lang, idx) => (
+                <div
+                  key={idx}
+                  className="relative group bg-[#151221] border border-white/5 p-6 rounded-xl overflow-hidden hover:border-purple-400/40 transition-all"
+                >
+                  <div className="relative flex justify-between items-start mb-2">
+                    <div className="p-2 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.2)] rounded-lg">
+                      <WholeWord className="w-5 h-5" />
+                    </div>
+                  </div>
+
+                  <h3 className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">
+                    {lang.language}
+                  </h3>
+                  <p className="text-sm text-slate-400 mt-1">{lang.level}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
         {/* Contact Section */}
         <section id="contact" className="py-24 px-4 lg:px-20 mb-20">
           <div className="max-w-4xl mx-auto bg-[#151221]/70 backdrop-blur-md rounded-2xl p-8 lg:p-12 border border-white/10 relative overflow-hidden group hover:border-purple-500/30 transition-colors duration-500">
@@ -924,7 +1031,7 @@ const publicKey = import.meta.env.VITE_PUBLIC_KEY;
 
         {/* Footer */}
         <footer className="py-8 text-center text-slate-600 text-sm border-t border-white/5 bg-[#08060d]">
-          <p>© 2023 Gustavo Vaz Teixeira. Designed for the universe.</p>
+          <p>© 2026 Gustavo Vaz Teixeira.</p>
         </footer>
       </main>
     </div>
