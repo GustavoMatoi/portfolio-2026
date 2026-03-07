@@ -482,20 +482,7 @@ const Portfolio = () => {
                 digitais com método e propósito.
               </p>
 
-              <div className="flex flex-wrap gap-4 mt-4">
-                <a
-                  href="/Gustavo_Curriculo_atualizado_2025.pdf"
-                  download="Gustavo_Vaz_Teixeira_Curriculo_2025.pdf"
-                  className="group relative overflow-hidden bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg font-bold transition-all shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:shadow-[0_0_35px_rgba(139,92,246,0.6)] hover:-translate-y-1 inline-block"
-                >
-                  <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                  <span className="flex items-center gap-2 relative z-10">
-                    <Download className="w-5 h-5" />
-                    <span>Dados do Capitão</span>
-                  </span>
-                </a>
-  
-              </div>
+           
 
               <div className="mt-8 pt-8 border-t border-white/5 relative">
                 <p className="text-[10px] text-slate-500 mb-4 font-mono tracking-widest uppercase">
@@ -630,9 +617,6 @@ const Portfolio = () => {
                   desenvolvimento de soluções digitais voltadas à educação
                   física (incluindo aplicativos de academia), além de projetos
                   envolvendo machine learning aplicado à saúde, tema do meu TCC.
-                  Atualmente, tenho direcionado meus estudos para a interseção
-                  entre computação e ciências biológicas, com interesse
-                  crescente em bioinformática.
                   <br />
                   Acredito que a computação é uma ponte entre áreas e pessoas —
                   e é exatamente nessa conexão que encontro motivação para
