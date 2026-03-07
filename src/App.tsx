@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import "./index.css";
-
+import './App.css'
 import {
   Home,
   User,
@@ -10,7 +9,6 @@ import {
   Satellite,
   Code,
   Menu,
-  Download,
   Send,
   Mail,
   MapPin,
