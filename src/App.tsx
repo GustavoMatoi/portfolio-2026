@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import "./index.css";
+import "./app.css";
+import './index.css'
 
 import {
   Home,
@@ -165,7 +166,6 @@ const Portfolio = () => {
       tech: [
         "React",
         "React Native",
-        "Electron",
         "Node.js",
         "WebSocket",
         "MediaPipe Hands",
@@ -185,6 +185,14 @@ const Portfolio = () => {
   ];
 
   const experiences = [
+    {
+      period: "2026 - Atualmente",
+      title: "Conteudista",
+      company: "CNA+",
+      description:
+        "Atuação como conteudista, com foco na criação de materiais didáticos para o público de 15 a 17 anos, traduzindo conceitos de Python, como funções, módulos, bibliotecas e Programação Orientada a Objetos, de maneira acessível e didática, por meio de exemplos visuais, associações com situações do cotidiano e desenvolvimento de jogos, sem comprometer o rigor dos conteúdos. Responsável também pela entrega ágil dos materiais e das respectivas correções, contribuindo para evitar atrasos e gargalos no fluxo de trabalho entre professores e revisores.",
+      active: true,
+    },
     {
       period: "2025 - Atualmente",
       title: "Professor de Programação",
@@ -210,13 +218,6 @@ const Portfolio = () => {
   ];
 
   const education = [
-    /*   {
-      title: "Mestrado em Ciência da Computação",
-      institution: "Universidade Federal de Viçosa",
-      year: "2026 - Atualmente",
-      icon: GraduationCap,
-      color: "primary",
-    }, */
     {
       title: "Especialização em Desenvolvimento Web e Mobile",
       institution: "IF Sudeste MG - Campus Rio Pomba",
@@ -225,7 +226,7 @@ const Portfolio = () => {
       color: "accent",
     },
     {
-      title: "Inglês Avançado",
+      title: "Master in English",
       institution: "CNA+",
       year: "2025 - Atualmente",
       icon: WholeWord,
